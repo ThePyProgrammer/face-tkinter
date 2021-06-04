@@ -1,2 +1,91 @@
+
+
+
+
 # FACE
-A Tkinter-based Facial Recognition based Sentimental Analysis Application that aims to predict emotions of users by accessing the Webcam using a Keras Model. Made as part of Building Blocs SG 2021.
+
+![logo](assets/logo.png?raw=true)
+
+- **F**ace-recognition
+- **A**I for
+- **C**ommunicating
+- **E**motions
+
+This is an AI Project for visual sentiment analysis based on audiences' **Face**.
+
+This application will be an indispensable tool for movie-makers *FACE*ing problems with getting honest feedback about thier productions through text.
+With **FACE**, they will be able to view thier audience's audiences reactions and will get essential information to improve thier movie production, using deep learning!
+
+## To Run
+To run, please run facetk.py using the python interpreter.
+
+```sh
+pip install -r requirements.txt
+```
+
+### Options
+
+```sh
+python facetk.py
+```
+
+or
+
+```sh
+py facetk.py
+```
+
+or
+
+```sh
+/path/to/python/interpreter/python.exe facetk.py
+```
+
+
+
+## But How does it work?
+We are using a Tensorflow Convolutional Neural Network with labels for the emotions.
+
+## Trained Model Details
+ - Convolutional Neural Network
+ - 20 epochs with 448 steps per epoch
+ - training accuracy: 0.8702
+ - validation accuracy: 0.6283
+
+
+## Technical Specifics
+## Clone with
+
+```bash
+git clone git@github.com:RenoirTan/beebeesee-2021.git
+```
+
+## Setup using
+
+**NOTE: Dlib uses a lot of resources for compilation and might crash your computer.**
+
+### Unix (SU)
+
+```bash
+bash ./setup.sh
+```
+
+### Windows (SU)
+
+```shell
+./setup.cmd
+```
+
+## Running the website in debug mode
+
+### Unix (RWDM)
+
+```bash
+bash ./debug.sh
+```
+
+### Windows (RWDM)
+
+```shell
+./debug.cmd
+```
