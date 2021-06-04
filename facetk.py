@@ -85,27 +85,33 @@ class SentimentalWebcam(Frame):
             self.master.mainloop()
 
     def play_img(self):
-        flag, frame = self.cap.read()
-        frame = cv2.resize(frame, (600, 500))
-        frame = cv2.flip(frame, 1)
+        try:
+            flag, frame = self.cap.read()
+            frame = cv2.resize(frame, (600, 500))
+            frame = cv2.flip(frame, 1)
 
-        if self.dt == 100:
-            self.img, frame = frame, modify_img(frame, frame)
-            self.dt = 0
-        else:
-            frame = modify_img(frame, self.img)
+            if self.dt == 100:
+                self.img, frame = frame, modify_img(frame, frame)
+                self.dt = 0
+            else:
+                frame = modify_img(frame, self.img)
 
-        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)
-        frame = cv2.resize(frame, (800, 600))
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)
+            frame = cv2.resize(frame, (800, 600))
 
-        img = Image.fromarray(frame)
-        imgtk = ImageTk.PhotoImage(image=img)
-        self.main.imgtk = imgtk
-        self.main.configure(image=imgtk)
+            img = Image.fromarray(frame)
+            imgtk = ImageTk.PhotoImage(image=img)
+            self.main.imgtk = imgtk
+            self.main.configure(image=imgtk)
 
-        self.dt += 10
-        self.main.after(10, self.play_img)
+            self.dt += 10
+            self.main.after(10, self.play_img)
+        except:
+            print("FACE has ended.")
+
+def main():
+    SentimentalWebcam()
 
 
 if __name__ == "__main__":
-    SentimentalWebcam()
+    main()
