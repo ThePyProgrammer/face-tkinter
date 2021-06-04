@@ -16,7 +16,7 @@ setup(name='face',
           'numpy', 'opencv-python', 'pillow', 'tensorflow', 'Keras'
       ],
       entry_points={
-          'console_scripts': ['face = facetk:main']
+          'console_scripts': ['face = main:main']
       },
       classifiers=[
           'Intended Audience :: Developers',
