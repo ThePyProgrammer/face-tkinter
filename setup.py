@@ -13,7 +13,7 @@ setup(name='face',
       url='https://github.com/ThePyProgrammer/face-tkinter',
       author_email='prannayagupta@programmer.net',
       install_requires=[
-          'numpy', 'opencv-python', 'pillow', 'tensorflow', 'keras'
+          'numpy', 'opencv-python', 'pillow', 'tensorflow', 'Keras'
       ],
       entry_points={
           'console_scripts': ['face = facetk:main']
