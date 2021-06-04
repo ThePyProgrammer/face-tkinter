@@ -87,6 +87,7 @@ class SentimentalWebcam(Frame):
         if not master:
             self.master.title("FACE - Your Own Sentimental Webcam")
             self.master.state("zoomed")
+            self.master.iconbitmap('assets/logo.ico')
             self.pack(fill=tk.BOTH, expand=1)
             self.master.mainloop()
 
