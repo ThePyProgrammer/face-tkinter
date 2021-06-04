@@ -4,11 +4,12 @@ import cv2
 from PIL import ImageTk, Image
 from face.gooey import Frame, Tk
 from face.gooey import Label as GooeyLabel
+import os
 
 from util.ml import create_prototype_emotion_model
 
 emotion_model = create_prototype_emotion_model()
-emotion_model.load_weights('models/trained_model.h5')
+emotion_model.load_weights(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'models/trained_model.h5'))
 
 cv2.ocl.setUseOpenCL(False)
 emotion_dict = {0: "Angry", 1: "Disgusted", 2: "Fearful", 3: "Happy", 4: "Neutral", 5: "Sad", 6: "Surprised"}
@@ -30,7 +31,12 @@ def draw_classification(frame, max_index, x, y):
     )
 
 def modify_img(frame_new, frame_old):
-    bounding_box = cv2.CascadeClassifier('models/haarcascades/haarcascade_frontalface_default.xml')
+    bounding_box = cv2.CascadeClassifier(
+        os.path.join(
+            os.path.dirname(os.path.abspath(__file__)),
+            'models/haarcascades/haarcascade_frontalface_default.xml'
+        )
+    )
 
     original_gray_frame = cv2.cvtColor(frame_old, cv2.COLOR_BGR2GRAY)
     new_gray_frame = cv2.cvtColor(frame_new, cv2.COLOR_BGR2GRAY)
@@ -85,27 +91,33 @@ class SentimentalWebcam(Frame):
             self.master.mainloop()
 
     def play_img(self):
-        flag, frame = self.cap.read()
-        frame = cv2.resize(frame, (600, 500))
-        frame = cv2.flip(frame, 1)
+        try:
+            flag, frame = self.cap.read()
+            frame = cv2.resize(frame, (600, 500))
+            frame = cv2.flip(frame, 1)
 
-        if self.dt == 100:
-            self.img, frame = frame, modify_img(frame, frame)
-            self.dt = 0
-        else:
-            frame = modify_img(frame, self.img)
+            if self.dt == 100:
+                self.img, frame = frame, modify_img(frame, frame)
+                self.dt = 0
+            else:
+                frame = modify_img(frame, self.img)
 
-        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)
-        frame = cv2.resize(frame, (800, 600))
+            frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGBA)
+            frame = cv2.resize(frame, (800, 600))
 
-        img = Image.fromarray(frame)
-        imgtk = ImageTk.PhotoImage(image=img)
-        self.main.imgtk = imgtk
-        self.main.configure(image=imgtk)
+            img = Image.fromarray(frame)
+            imgtk = ImageTk.PhotoImage(image=img)
+            self.main.imgtk = imgtk
+            self.main.configure(image=imgtk)
 
-        self.dt += 10
-        self.main.after(10, self.play_img)
+            self.dt += 10
+            self.main.after(10, self.play_img)
+        except:
+            print("FACE has ended.")
+
+def main():
+    SentimentalWebcam()
 
 
 if __name__ == "__main__":
-    SentimentalWebcam()
+    main()
